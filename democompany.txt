@@ -1,0 +1,79 @@
+import pandas as pd
+
+# Define the company data as a dictionary
+data = {
+    "Company Name": [
+        "TechNova Solutions", "GreenLeaf Technologies", "UrbanEdge Consulting",
+        "Blue Horizon Financial", "Innovative Ventures", "Pioneer Digital",
+        "EcoDrive Energy", "FutureLink Software", "MetroTrade Logistics",
+        "Vertex Health", "Prime Construction", "Sunrise Marketing",
+        "Elite Design Studios", "Global Trade Partners", "NextGen Robotics"
+    ],
+    "Description": [
+        "Digital transformation & IT consulting firm.",
+        "Renewable energy & sustainability solutions provider.",
+        "Urban development & architecture consulting firm.",
+        "Financial advisory & investment management experts.",
+        "Venture capital firm investing in tech startups.",
+        "Digital marketing & online media agency.",
+        "Clean energy & automotive solutions provider.",
+        "Developer of next-generation enterprise software.",
+        "Full-service logistics & supply chain management firm.",
+        "Provider of healthcare technology & digital health tools.",
+        "General contracting & construction management services.",
+        "Creative advertising & brand development agency.",
+        "Award-winning design & creative consulting firm.",
+        "International trade & export consultancy firm.",
+        "Pioneer in robotics & automation technology solutions."
+    ],
+    "Location": [
+        "San Francisco", "Portland", "New York City", "Chicago", "Austin",
+        "Los Angeles", "Denver", "Seattle", "Atlanta", "Boston", "Dallas",
+        "Miami", "San Diego", "Houston", "Detroit"
+    ],
+    "Address": [
+        "123 Tech Way", "456 Green Blvd", "789 Urban St", "101 Finance Ave",
+        "202 Innovation Dr", "303 Creative Blvd", "404 Energy Pkwy", "505 Code Lane",
+        "606 Commerce Rd", "707 Wellness Way", "808 Build St", "909 Ocean Dr",
+        "111 Creative Loop", "222 Trade Center", "333 Tech Park"
+    ],
+    "District": [
+        "Downtown", "Pearl District", "Manhattan", "Loop", "Downtown Austin",
+        "Hollywood", "Capitol Hill", "South Lake Union", "Midtown", "Back Bay",
+        "Design District", "Brickell", "Gaslamp Quarter", "Midtown", "Corktown"
+    ],
+    "Province": [
+        "California", "Oregon", "New York", "Illinois", "Texas",
+        "California", "Colorado", "Washington", "Georgia", "Massachusetts",
+        "Texas", "Florida", "California", "Texas", "Michigan"
+    ],
+    "Postal Code": [
+        "94105", "97205", "10001", "60601", "78701",
+        "90028", "80203", "98109", "30303", "02116",
+        "75201", "33131", "92101", "77002", "48226"
+    ],
+    "Tel": [
+        "(415) 555-0100", "(503) 555-0145", "(212) 555-0199", "(312) 555-0177",
+        "(512) 555-0123", "(323) 555-0166", "(303) 555-0133", "(206) 555-0188",
+        "(404) 555-0111", "(617) 555-0144", "(214) 555-0198", "(305) 555-0122",
+        "(619) 555-0175", "(713) 555-0150", "(313) 555-0180"
+    ],
+    "Region": [
+        "West Coast", "Pacific Northwest", "East Coast", "Midwest", "South Central",
+        "West Coast", "Mountain", "Pacific Northwest", "Southeast", "Northeast",
+        "South", "Southeast", "West Coast", "South", "Midwest"
+    ],
+    "Salary Range": [
+        "$70k - $120k", "$65k - $110k", "$80k - $150k", "$90k - $160k", "$75k - $130k",
+        "$70k - $125k", "$68k - $115k", "$85k - $140k", "$60k - $100k", "$80k - $145k",
+        "$65k - $110k", "$55k - $95k", "$70k - $120k", "$80k - $135k", "$85k - $150k"
+    ]
+}
+
+# Create a DataFrame from the dictionary
+df = pd.DataFrame(data)
+
+# Export the DataFrame to an Excel file
+df.to_excel("demo_companies.xlsx", index=False)
+
+print("Excel file 'demo_companies.xlsx' created successfully!")
