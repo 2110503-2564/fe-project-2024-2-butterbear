@@ -13,7 +13,7 @@ export default function TopMenu() {
       // Anonymous Top Menu
       return (
         <div className="flex items-center space-x-4">
-          <Link href="/companyinfo/company" className="font-medium text-[#3B1F0B] hover:underline">
+          <Link href="/company" className="font-medium text-[#3B1F0B] hover:underline">
             Booking Interview
           </Link>
           <Link href="/login" className="font-medium text-[#3B1F0B] hover:underline">

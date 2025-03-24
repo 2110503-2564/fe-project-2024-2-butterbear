@@ -25,7 +25,7 @@ export default function InteractiveCard({
   }
 
   function handleClick() {
-    router.push(`/companyinfo/company/${cid}`);
+    router.push(`/company/${cid}`);
   }
 
   return (
