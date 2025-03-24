@@ -6,9 +6,8 @@ type CardProps = {
 
 export default function Card({ venueName, imgSrc, description }: CardProps) {
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-xs mx-auto">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden w-[240px]">
       <div className="bg-gray-300 h-32 w-full">
-        {/* Use Image if desired */}
         {/* <Image src={imgSrc} alt={venueName} fill className="object-cover" /> */}
       </div>
       <div className="p-4 text-left">

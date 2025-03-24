@@ -1,4 +1,6 @@
 "use client";
+
+import InteractiveCard from "@/components/InteractiveCard";
 import Card from "@/components/Card";
 
 export default function CardPanel() {
@@ -25,21 +27,24 @@ export default function CardPanel() {
 
   return (
     <div className="bg-gray-50 text-center py-12 px-4">
-      {/* Headline */}
       <h2 className="text-3xl font-bold text-gray-800 mb-2">Our company</h2>
       <p className="text-gray-600 mb-10">
         Connect with 300+ top companies. One platform. Endless opportunities.
       </p>
 
-      {/* Cards */}
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="flex flex-wrap justify-center gap-6">
         {companies.map((company) => (
-          <Card
+          <InteractiveCard
             key={company.cid}
-            venueName={company.name}
-            imgSrc={company.image}
-            description={company.description}
-          />
+            contentName={company.name}
+            cid={company.cid}
+          >
+            <Card
+              venueName={company.name}
+              imgSrc={company.image}
+              description={company.description}
+            />
+          </InteractiveCard>
         ))}
       </div>
     </div>
