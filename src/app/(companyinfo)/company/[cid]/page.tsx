@@ -3,22 +3,60 @@
 import { useParams } from "next/navigation";
 
 export default function CompanyDetailPage() {
-  const { id } = useParams();
+  const { cid } = useParams();
 
-  // You can replace this with real company data later
-  const company = {
-    name: "SCB Company",
-    location: "https://maps.app.goo.gl/Loremipsumdolor",
-    address: "Lorem ipsum dolor sit amet",
-    district: "Lorem ipsum",
-    province: "Lorem ipsum",
-    postalCode: "99999",
-    tel: "088-888-8888",
-    region: "Lorem",
-    salary: "30,000 THB",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...",
-  };
+  const companies = [
+    {
+      _id: "1",
+      name: "SCB Company",
+      location: "https://maps.app.goo.gl/Loremipsumdolor",
+      address: "123 SCB Road",
+      district: "Chatuchak",
+      province: "Bangkok",
+      postalCode: "10900",
+      tel: "02-777-7777",
+      region: "Central",
+      salary: "30,000 THB",
+      description:
+        "SCB is a leading commercial bank offering full financial services...",
+    },
+    {
+      _id: "2",
+      name: "KBank",
+      location: "https://maps.app.goo.gl/Somewhere",
+      address: "99 Kasikorn Road",
+      district: "Bang Kapi",
+      province: "Bangkok",
+      postalCode: "10240",
+      tel: "02-888-8888",
+      region: "Central",
+      salary: "32,000 THB",
+      description: "KBank is Thailand's digital banking leader...",
+    },
+    {
+      _id: "3",
+      name: "PTT",
+      location: "https://maps.app.goo.gl/PTTmap",
+      address: "Energy Complex, Vibhavadi Rangsit Rd",
+      district: "Chatuchak",
+      province: "Bangkok",
+      postalCode: "10900",
+      tel: "02-537-2000",
+      region: "Central",
+      salary: "35,000 THB",
+      description: "PTT is the national energy company of Thailand, managing oil, gas, and renewable sectors across the nation and internationally."
+    },
+  ];
+
+  const company = companies.find((c) => c._id === cid);
+
+  if (!company) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#FFF3E2]">
+        <p className="text-xl text-red-600 font-semibold">Company not found</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#3B1F0B] py-10 px-4">
@@ -27,14 +65,20 @@ export default function CompanyDetailPage() {
           {company.name}
         </h2>
 
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col md:flex-row">
           {/* Left side: image + description */}
           <div className="flex-1">
-            <div className="bg-gray-300 w-full h-48 rounded-md mb-4"></div>
-            <p className="text-sm text-gray-600">{company.description}</p>
+            <img
+              src="/image/placeholder.jpg"
+              alt={company.name}
+              className="w-full h-48 object-cover rounded-md mb-4"
+            />
+            <div className="text-sm text-gray-600 p-3 rounded h-[218px] overflow-y-auto scrollbar-hide">
+              {company.description}
+            </div>
           </div>
 
-          {/* Right side: read-only form */}
+          {/* Right side: read-only field group */}
           <div className="flex-1 space-y-2">
             <Field label="Name" value={company.name} />
             <Field label="Location" value={company.location} />
@@ -59,20 +103,16 @@ export default function CompanyDetailPage() {
   );
 }
 
-//read-only input field
+// display-only field
 function Field({ label, value }: { label: string; value: string }) {
-    return (
-      <div className="flex items-center space-x-4">
-        <label className="w-32 text-sm font-medium text-gray-700 text-right">
-          {label}
-        </label>
-        <input
-          type="text"
-          value={value}
-          readOnly
-          className="flex-1 px-4 py-2 border rounded-md bg-gray-100 text-sm text-gray-800"
-        />
+  return (
+    <div className="flex items-center space-x-4">
+      <label className="w-32 text-sm font-medium text-gray-700 text-right">
+        {label}
+      </label>
+      <div className="flex-1 px-4 py-2 border rounded-md bg-gray-100 text-sm text-gray-800">
+        {value}
       </div>
-    );
-  }
-  
+    </div>
+  );
+}

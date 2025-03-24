@@ -13,26 +13,31 @@ export const bookSlice = createSlice({
     addBooking: (state, action: PayloadAction<BookingItem>) => {
       const existingIndex = state.bookItems.findIndex(
         (item) =>
-          item.venue === action.payload.venue &&
-          item.bookDate === action.payload.bookDate
+          item.companyId === action.payload.companyId &&
+          item.bookDate === action.payload.bookDate &&
+          item.userId === action.payload.userId
       );
 
       if (existingIndex !== -1) {
+        // ถ้าเคยจองวันเดียวกันกับบริษัทนี้ → อัปเดตแทน
         state.bookItems[existingIndex] = action.payload;
       } else {
         state.bookItems.push(action.payload);
       }
     },
+
     removeBooking: (state, action: PayloadAction<BookingItem>) => {
-      const remainItems = state.bookItems.filter((obj) => {
-        return (
-          obj.nameLastname !== action.payload.nameLastname ||
-          obj.tel !== action.payload.tel ||
-          obj.venue !== action.payload.venue ||
-          obj.bookDate !== action.payload.bookDate
-        );
-      });
-      state.bookItems = remainItems;
+      state.bookItems = state.bookItems.filter(
+        (item) =>
+          !(
+            item.name === action.payload.name &&
+            item.tel === action.payload.tel &&
+            item.email === action.payload.email &&
+            item.bookDate === action.payload.bookDate &&
+            item.companyId === action.payload.companyId &&
+            item.userId === action.payload.userId
+          )
+      );
     },
   },
 });

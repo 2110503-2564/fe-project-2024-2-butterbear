@@ -1,27 +1,30 @@
-interface VenueItem {
+interface CompanyItem {
   _id: string;
   name: string;
   address: string;
   district: string;
   province: string;
-  postalcode: string;
+  postalCode: string;
   tel: string;
-  picture: string;
-  dailyrate: number;
-  __v: number;
-  id: string;
+  email: string;
+  website: string;
+  description: string;
+  picture?: string;
 }
 
-interface VenueJson {
+interface CompanyJson {
   success: boolean;
   count: number;
   pagination: Object;
-  data: VenueItem[];
+  data: CompanyItem[];
 }
 
 interface BookingItem {
-  nameLastname: string;
+  name: string;
   tel: string;
-  venue: string;
+  email: string;
   bookDate: string;
+  companyName: string;
+  companyId: string;
+  userId: string;
 }
