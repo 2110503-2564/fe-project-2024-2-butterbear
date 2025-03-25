@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 export default function AddCompanyPage() {
   const router = useRouter();
@@ -23,9 +24,18 @@ export default function AddCompanyPage() {
   const [isClient, setIsClient] = useState(false);
   const [imageBase64, setImageBase64] = useState<string | null>(null);
 
+  const { user } = useUser();
+    
+  useEffect(() => {
+    if (!user || user.role !== "admin") {
+      router.push("/");
+    }
+  }, [user]);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
+
   useEffect(() => {
     handleImageUpload()
   }, [imageFile]);

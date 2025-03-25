@@ -78,7 +78,14 @@ export default function CompanyDetailPage() {
         <div className="mt-6 text-center">
           <button
             className="bg-[#3B1F0B] text-white px-6 py-2 rounded-md font-semibold hover:bg-[#5a2f14]"
-            onClick={() => router.push(`/booking?cid=${company._id}`)}
+            onClick={() => {
+              const token = localStorage.getItem("token");
+              if (!token) {
+                router.push("/login");
+              } else {
+                router.push(`/booking?cid=${company._id}`);
+              }
+            }}
           >
             Booking Interview
           </button>

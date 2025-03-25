@@ -21,6 +21,13 @@ export default function BookingPage() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchCompany = async () => {
       if (!cid) return;
       console.log("Fetching company with id:", cid);

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 type User = {
   _id: string;
@@ -13,6 +15,14 @@ type User = {
 export default function AdminBookingUserList() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const { user } = useUser();
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (!user || user.role !== "admin") {
+      router.push("/");
+    }
+  }, [user]);
 
   useEffect(() => {
     const fetchBookings = async () => {

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import dayjs from "dayjs";
+import { useUser } from "@/context/UserContext";
 
 interface Booking {
   _id: string;
@@ -21,6 +22,14 @@ export default function UserBookingPage() {
   const [editedDates, setEditedDates] = useState<{ [id: string]: string }>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { user } = useUser();
+  
+  useEffect(() => {
+    if (!user || user.role !== "admin") {
+      router.push("/");
+    }
+  }, [user]);
 
   useEffect(() => {
     const fetchUserBookings = async () => {

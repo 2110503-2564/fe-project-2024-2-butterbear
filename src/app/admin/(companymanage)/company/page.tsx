@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 interface Company {
   _id: string;
@@ -12,7 +14,15 @@ interface Company {
 
 export default function ManageCompanyPage() {
   const [companies, setCompanies] = useState<Company[]>([]);
-
+  const { user } = useUser();
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (!user || user.role !== "admin") {
+      router.push("/");
+    }
+  }, [user]);
+  
   useEffect(() => {
     fetchCompanies();
   }, []);
@@ -58,7 +68,7 @@ export default function ManageCompanyPage() {
         alert("Delete failed: " + data.message);
         throw new Error("Delete failed");
       }
-      
+
       fetchCompanies();
     } catch (err) {
       console.error("Delete failed:", err);

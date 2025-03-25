@@ -2,13 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function AdminHome() {
   const { user } = useUser();
   const [timestamp, setTimestamp] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
+    if (!user || user.role !== "admin") {
+      router.push("/");
+    }
+  
     const now = new Date();
     setTimestamp(
       now.toLocaleString("en-GB", {
@@ -20,7 +26,7 @@ export default function AdminHome() {
         second: "2-digit",
       })
     );
-  }, []);
+  }, [user]);
 
   const name = user?.name || "Admin";
 

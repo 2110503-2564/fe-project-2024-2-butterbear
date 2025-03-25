@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 export default function EditCompanyPage() {
   const { cid } = useParams();
@@ -26,6 +27,14 @@ export default function EditCompanyPage() {
   const [existingImage, setExistingImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { user } = useUser();
+  
+  useEffect(() => {
+    if (!user || user.role !== "admin") {
+        router.push("/");
+    }
+  }, [user]);
 
   useEffect(() => {
     const fetchCompany = async () => {
