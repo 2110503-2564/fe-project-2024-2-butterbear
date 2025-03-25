@@ -1,14 +1,38 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [tel, setTel] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign up with:", email, password);
-    //เชื่อม backendตรงนี้ !!
+    setError("");
+
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, tel, role: "user" }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        setError(errorData.error || "Something went wrong");
+        return;
+      }
+      
+      router.push("/");
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError("Network error. Please try again.");
+    }
   };
 
   return (
@@ -20,22 +44,39 @@ export default function SignUpPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
+            type="text"
+            placeholder="Name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md"
+          />
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            required
+            value={tel}
+            onChange={(e) => setTel(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md"
+          />
+          <input
             type="email"
             placeholder="Email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-orange-200"
+            className="w-full px-4 py-2 border rounded-md"
           />
-
           <input
             type="password"
             placeholder="Password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-orange-200"
+            className="w-full px-4 py-2 border rounded-md"
           />
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button
             type="submit"
