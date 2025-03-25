@@ -55,7 +55,7 @@ export default function CompanyDetailPage() {
               alt={company.name}
               className="w-full h-48 object-cover rounded-md mb-4"
             />
-            <div className="text-sm text-gray-600 p-3 rounded h-[218px] overflow-y-auto scrollbar-hide">
+            <div className="text-sm text-gray-600 p-3 rounded h-[100px] overflow-y-auto scrollbar-hide">
               {company.description}
             </div>
           </div>
@@ -70,6 +70,7 @@ export default function CompanyDetailPage() {
             <Field label="Postal Code" value={company.postalcode} />
             <Field label="Tel" value={company.tel} />
             <Field label="Region" value={company.region} />
+            <Field label="Website" value={company.website} isLink />
             <Field label="Salary" value={company.salary} />
           </div>
         </div>

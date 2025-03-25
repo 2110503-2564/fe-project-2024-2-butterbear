@@ -114,8 +114,8 @@ export default function BookingList() {
   };
 
   if (loading) return <p className="text-center py-6">Loading bookings...</p>;
-  if (!bookings.length) return <p className="text-center py-6">No interview bookings</p>;
-
+  if (!bookings.length) return <p className="text-center text-black py-6">No interview bookings</p>;
+  
   return (
     <main className="min-h-screen bg-[#3B1F0B] py-10 px-4">
       <div className="bg-white rounded-xl shadow-lg w-full max-w-4xl mx-auto px-8 py-10">
@@ -123,9 +123,9 @@ export default function BookingList() {
 
         <div className="space-y-4">
           {bookings.map((booking) => {
-            console.log("📅 booking.bookDate =", booking.bookingDate);
+            console.log("booking.bookDate =", booking.bookingDate);
             return(
-            <div key={booking._id} className="bg-gray-100 p-5 rounded flex justify-between items-center">
+            <div key={booking._id} className="bg-gray-100 text-black p-5 rounded flex justify-between items-center">
               <div>
                 <h3 className="font-bold mb-1">{booking.company?.name ?? "Unknown Company"}</h3>
                 <div className="text-sm mb-1">

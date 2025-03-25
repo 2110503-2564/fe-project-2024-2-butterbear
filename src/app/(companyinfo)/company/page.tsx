@@ -28,26 +28,12 @@ export default function CompanyAllPage() {
     fetchCompanies();
   }, []);
 
-  const convertDriveUrl = (url: string): string => {
-    const match = url.match(/\/d\/([^/]+)\//);
-    if (match && match[1]) {
-      return `https://drive.google.com/uc?export=view&id=${match[1]}`;
-    }
-
-    const idParamMatch = url.match(/id=([^&]+)/);
-    if (idParamMatch && idParamMatch[1]) {
-      return `https://drive.google.com/uc?export=view&id=${idParamMatch[1]}`;
-    }
-
-    return url;
-  };
-
   return (
-    <main className="min-h-screen bg-[#FFF3E2] px-6 py-12">
+    <main className="min-h-screen bg-[#FFFFFF] px-6 py-12">
       <h1 className="text-3xl font-bold text-[#3B1F0B] mb-4">All Companies</h1>
 
       {loading ? (
-        <p className="text-center">Loading companies...</p>
+        <p className="text-center text-black">Loading companies...</p>
       ) : (
         <div className="flex flex-wrap gap-6">
           {companies.map((company) => (

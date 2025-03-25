@@ -1,7 +1,7 @@
-// app/admin/page.tsx
 "use client";
+
 import { useEffect, useState } from "react";
-import { useUser } from "@/context/UserContext"; // ✅ ใช้ useUser แทน useSession
+import { useUser } from "@/context/UserContext";
 import Link from "next/link";
 
 export default function AdminHome() {
@@ -35,7 +35,7 @@ export default function AdminHome() {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <SessionCard title="Company" href="/admin/company" />
-          <SessionCard title="Booking" href="/admin/bookings" />
+          <SessionCard title="Booking" href="/admin/booking" />
         </div>
       </div>
     </div>
