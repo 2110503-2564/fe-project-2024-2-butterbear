@@ -9,7 +9,7 @@ interface CompanyItem {
   email: string;
   website: string;
   description: string;
-  picture?: string;
+  image?: string;
 }
 
 interface CompanyJson {
@@ -29,6 +29,3 @@ interface BookingItem {
   };
   user: string;
 }
-
-
-
