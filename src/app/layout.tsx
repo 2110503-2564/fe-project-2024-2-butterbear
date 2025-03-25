@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/authOptions";
 import NextAuthProvider from "@/providers/NextAuthProvider";
 import ReduxProvider from "@/redux/ReduxProvider";
+import { UserProvider } from "@/context/UserContext"; // ✅ เพิ่ม
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,17 +17,19 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
           <NextAuthProvider session={session}>
-            <TopMenu />
-            {children}
+            <UserProvider>
+              <TopMenu />
+              {children}
+            </UserProvider>
           </NextAuthProvider>
         </ReduxProvider>
       </body>
