@@ -20,11 +20,15 @@ interface CompanyJson {
 }
 
 interface BookingItem {
-  name: string;
-  tel: string;
-  email: string;
-  bookDate: string;
-  companyName: string;
-  companyId: string;
-  userId: string;
+  _id: string;
+  bookingDate: string;
+  company: {
+    _id: string;
+    name: string;
+    website: string;
+  };
+  user: string;
 }
+
+
+
