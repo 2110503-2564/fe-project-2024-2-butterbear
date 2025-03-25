@@ -51,7 +51,9 @@ export default function CompanyDetailPage() {
           {/* Left: image + description */}
           <div className="flex-1">
             <img
-              src={`/image/company/${company.image ?? "placeholder.jpg"}`}
+              src={company.image
+                ? company.image
+                : "/image/placeholder.jpg"}
               alt={company.name}
               className="w-full h-48 object-cover rounded-md mb-4"
             />

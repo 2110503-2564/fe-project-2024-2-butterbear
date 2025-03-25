@@ -46,7 +46,7 @@ export default function CompanyAllPage() {
                 companyName={company.name}
                 imgSrc={
                   company.image
-                    ? `/image/company/${company.image}`
+                    ? company.image
                     : "/image/placeholder.jpg"
                 }
                 description={company.description}

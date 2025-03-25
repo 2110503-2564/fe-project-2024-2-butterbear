@@ -15,7 +15,7 @@ export default function Card({ companyName, imgSrc, description }: CardProps) {
         />
       </div>
       <div className="p-4 text-left h-[100px]">
-        <h3 className="text-md font-bold text-gray-800 mb-1">{companyName}</h3>
+        <h3 className="text-md font-bold text-gray-800 mb-1 truncate">{companyName}</h3>
         <p className="text-sm text-gray-500 line-clamp-2 overflow-hidden text-ellipsis">
           {description}
         </p>

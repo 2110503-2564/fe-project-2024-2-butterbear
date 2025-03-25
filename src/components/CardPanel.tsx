@@ -48,7 +48,9 @@ export default function CardPanel() {
           >
             <Card
               companyName={company.name}
-              imgSrc={`/image/company/${company.image}`}
+              imgSrc={company.image
+                ? company.image
+                : "/image/placeholder.jpg"}
               description={company.description}
             />
           </InteractiveCard>
