@@ -1,93 +1,80 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import LocationDateReserve from "@/components/DateReserve";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/redux/store";
-import { addBooking } from "@/redux/features/bookSlice";
+import { useUser } from "@/context/UserContext";
 
 export default function Booking() {
   const urlParams = useSearchParams();
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
-  const bookings = useSelector((state: RootState) => state.bookSlice.bookItems);
+  const { user } = useUser();
+  const cid = urlParams.get("cid");
 
-  const vid = urlParams.get("vid");
-
-  const companies = [
-    {
-      id: "1",
-      name: "SCB Company",
-      description: "Leading Thai commercial bank",
-      location: "https://maps.app.goo.gl/Loremipsumdolor",
-      address: "123 SCB Road, Chatuchak, Bangkok",
-      tel: "088-888-8888",
-      email: "scb@gmail.com",
-    },
-    {
-      id: "2",
-      name: "KBank",
-      description: "Digital banking leader",
-      location: "https://maps.app.goo.gl/Somewhere",
-      address: "Kasikorn Building, Bang Kapi, Bangkok",
-      tel: "089-999-9999",
-      email: "kbank@gmail.com",
-    },
-    {
-      id: "3",
-      name: "PTT",
-      description: "Energy company of Thailand",
-      location: "https://maps.app.goo.gl/PTTmap",
-      address: "Energy Complex, Vibhavadi Rangsit",
-      tel: "087-777-7777",
-      email: "ptt@gmail.com",
-    },
-  ];
-
-  const selectedCompany = companies.find((c) => c.id === vid) || companies[0];
-
+  const [company, setCompany] = useState<any>(null);
   const [bookingData, setBookingData] = useState({
     name: "",
     tel: "",
     email: "",
-    companyName: selectedCompany.name,
-    companyId: selectedCompany.id,
-    bookDate: "",
-    userId: "mock-user-id",
+    bookingDate: "",
   });
 
-  const handleFormDataChange = (data: Partial<BookingItem>) => {
+  useEffect(() => {
+    const fetchCompany = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/v1/companies/${cid}`);
+        const data = await res.json();
+        if (res.ok && data.success) {
+          setCompany(data.data);
+        }
+      } catch (err) {
+        console.error("Error fetching company:", err);
+      }
+    };
+
+    if (cid) fetchCompany();
+  }, [cid]);
+
+  const handleFormDataChange = (data: any) => {
     setBookingData((prev) => ({
       ...prev,
       ...data,
     }));
   };
 
-  const makeBooking = () => {
-    if (bookings.length >= 3) {
-      alert("You have reached the maximum of 3 bookings.");
-      return;
+  const makeBooking = async () => {
+    if (!user) return alert("Please login first");
+    const { name, tel, email, bookingDate } = bookingData;
+    if (!name || !tel || !email || !bookingDate) {
+      return alert("Please fill in all required fields");
     }
 
-    const { name, tel, email, companyName, bookDate, companyId, userId } = bookingData;
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`http://localhost:5000/api/v1/companies/${cid}/booking`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ ...bookingData }),
+      });
 
-    if (name && tel && email && companyName && bookDate) {
-      const newBooking: BookingItem = {
-        name,
-        tel,
-        email,
-        bookDate,
-        companyName,
-        companyId,
-        userId,
-      };
-
-      dispatch(addBooking(newBooking));
-      router.push("/mybooking");
-    } else {
-      alert("Please fill in all required fields");
+      const data = await res.json();
+      if (res.ok) {
+        router.push("/mybooking");
+      } else {
+        alert(data.message || "Booking failed");
+      }
+    } catch (err) {
+      console.error("Booking error:", err);
+      alert("An error occurred");
     }
   };
+
+  if (!company) {
+    return <div className="min-h-screen bg-[#FFF3E2] flex items-center justify-center">Loading company...</div>;
+  }
 
   return (
     <main className="min-h-screen bg-[#3B1F0B] py-10 px-4 text-black">
@@ -99,17 +86,12 @@ export default function Booking() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Company Info */}
           <div className="flex-1 bg-gray-100 p-6 rounded">
-            <h3 className="text-lg font-bold mb-2">{selectedCompany.name}</h3>
-            <p className="text-sm text-gray-600 mb-4">
-              {selectedCompany.description}
-            </p>
-            <Field label="Location" value={selectedCompany.location} />
-            <Field label="Address" value={selectedCompany.address} />
-            <Field label="Tel" value={selectedCompany.tel} />
-            <Field label="Email" value={selectedCompany.email} />
-            <button className="bg-gray-300 text-gray-700 font-semibold rounded px-4 py-2 mt-4 cursor-pointer">
-              More Detail
-            </button>
+            <h3 className="text-lg font-bold mb-2">{company.name}</h3>
+            <p className="text-sm text-gray-600 mb-4">{company.description}</p>
+            <Field label="Location" value={company.location} />
+            <Field label="Address" value={company.address} />
+            <Field label="Tel" value={company.tel} />
+            <Field label="Email" value={company.email} />
           </div>
 
           {/* User Form */}

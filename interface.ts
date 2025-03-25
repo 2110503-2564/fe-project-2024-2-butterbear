@@ -1,12 +1,15 @@
 interface CompanyItem {
   _id: string;
   name: string;
+  location: string;
   address: string;
   district: string;
   province: string;
-  postalCode: string;
+  postalcode: string;
   tel: string;
   email: string;
+  region: string;
+  salary: string;
   website: string;
   description: string;
   image?: string;

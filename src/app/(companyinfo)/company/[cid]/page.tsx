@@ -1,54 +1,38 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 export default function CompanyDetailPage() {
   const { cid } = useParams();
+  const router = useRouter();
+  const [company, setCompany] = useState<CompanyItem | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const companies = [
-    {
-      _id: "1",
-      name: "SCB Company",
-      location: "https://maps.app.goo.gl/Loremipsumdolor",
-      address: "123 SCB Road",
-      district: "Chatuchak",
-      province: "Bangkok",
-      postalCode: "10900",
-      tel: "02-777-7777",
-      region: "Central",
-      salary: "30,000 THB",
-      description:
-        "SCB is a leading commercial bank offering full financial services...",
-    },
-    {
-      _id: "2",
-      name: "KBank",
-      location: "https://maps.app.goo.gl/Somewhere",
-      address: "99 Kasikorn Road",
-      district: "Bang Kapi",
-      province: "Bangkok",
-      postalCode: "10240",
-      tel: "02-888-8888",
-      region: "Central",
-      salary: "32,000 THB",
-      description: "KBank is Thailand's digital banking leader...",
-    },
-    {
-      _id: "3",
-      name: "PTT",
-      location: "https://maps.app.goo.gl/PTTmap",
-      address: "Energy Complex, Vibhavadi Rangsit Rd",
-      district: "Chatuchak",
-      province: "Bangkok",
-      postalCode: "10900",
-      tel: "02-537-2000",
-      region: "Central",
-      salary: "35,000 THB",
-      description: "PTT is the national energy company of Thailand, managing oil, gas, and renewable sectors across the nation and internationally."
-    },
-  ];
+  useEffect(() => {
+    const fetchCompany = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/v1/companies/${cid}`);
+        const data = await res.json();
+        if (res.ok && data.success) {
+          setCompany(data.data);
+        } else {
+          console.error("Company not found:", data.message);
+          setCompany(null);
+        }
+      } catch (err) {
+        console.error("Error fetching company:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const company = companies.find((c) => c._id === cid);
+    if (cid) fetchCompany();
+  }, [cid]);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center bg-[#FFF3E2]">Loading...</div>;
+  }
 
   if (!company) {
     return (
@@ -61,15 +45,13 @@ export default function CompanyDetailPage() {
   return (
     <div className="min-h-screen bg-[#3B1F0B] py-10 px-4">
       <div className="bg-white rounded-xl shadow-lg w-full px-8 py-10 mx-auto max-w-[95%] md:max-w-[90%]">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          {company.name}
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">{company.name}</h2>
 
         <div className="flex flex-col md:flex-row">
-          {/* Left side: image + description */}
+          {/* Left: image + description */}
           <div className="flex-1">
             <img
-              src="/image/placeholder.jpg"
+              src={`/image/company/${company.image ?? "placeholder.jpg"}`}
               alt={company.name}
               className="w-full h-48 object-cover rounded-md mb-4"
             />
@@ -78,23 +60,25 @@ export default function CompanyDetailPage() {
             </div>
           </div>
 
-          {/* Right side: read-only field group */}
+          {/* Right: fields */}
           <div className="flex-1 space-y-2">
             <Field label="Name" value={company.name} />
-            <Field label="Location" value={company.location} />
+            <Field label="Location" value={company.location} isLink />
             <Field label="Address" value={company.address} />
             <Field label="District" value={company.district} />
             <Field label="Province" value={company.province} />
-            <Field label="Postal Code" value={company.postalCode} />
+            <Field label="Postal Code" value={company.postalcode} />
             <Field label="Tel" value={company.tel} />
             <Field label="Region" value={company.region} />
             <Field label="Salary" value={company.salary} />
           </div>
         </div>
 
-        {/* Booking button */}
         <div className="mt-6 text-center">
-          <button className="bg-[#3B1F0B] text-white px-6 py-2 rounded-md font-semibold hover:bg-[#5a2f14]">
+          <button
+            className="bg-[#3B1F0B] text-white px-6 py-2 rounded-md font-semibold hover:bg-[#5a2f14]"
+            onClick={() => router.push(`/booking?cid=${company._id}`)}
+          >
             Booking Interview
           </button>
         </div>
@@ -103,15 +87,33 @@ export default function CompanyDetailPage() {
   );
 }
 
-// display-only field
-function Field({ label, value }: { label: string; value: string }) {
+function Field({
+  label,
+  value,
+  isLink = false,
+}: {
+  label: string;
+  value: string;
+  isLink?: boolean;
+}) {
   return (
     <div className="flex items-center space-x-4">
       <label className="w-32 text-sm font-medium text-gray-700 text-right">
         {label}
       </label>
-      <div className="flex-1 px-4 py-2 border rounded-md bg-gray-100 text-sm text-gray-800">
-        {value}
+      <div className="flex-1 px-4 py-2 border rounded-md bg-gray-100 text-sm text-gray-800 break-words">
+        {isLink ? (
+          <a
+            href={value}
+            className="text-blue-600 underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {value}
+          </a>
+        ) : (
+          value
+        )}
       </div>
     </div>
   );

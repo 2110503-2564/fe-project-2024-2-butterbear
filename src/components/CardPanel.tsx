@@ -40,7 +40,7 @@ export default function CardPanel() {
             cid={company.cid}
           >
             <Card
-              venueName={company.name}
+              companyName={company.name}
               imgSrc={company.image}
               description={company.description}
             />
