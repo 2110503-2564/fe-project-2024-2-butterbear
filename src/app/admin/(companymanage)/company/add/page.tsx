@@ -76,7 +76,7 @@ export default function AddCompanyPage() {
     const token = localStorage.getItem("token");
     
     try {
-      const res = await fetch("http://localhost:5000/api/v1/companies", {
+      const res = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/companies", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

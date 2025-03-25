@@ -40,7 +40,7 @@ export default function ProfilePage() {
 
     setStatusMessage(null);
 
-    const res = await fetch("http://localhost:5000/api/v1/auth/updatedetails", {
+    const res = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/auth/updatedetails", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

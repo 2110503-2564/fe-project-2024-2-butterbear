@@ -27,7 +27,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:5000/api/v1/auth/me", {
+      fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/auth/me", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())

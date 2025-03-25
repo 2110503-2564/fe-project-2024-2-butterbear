@@ -11,7 +11,7 @@ export default function CompanyAllPage() {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/v1/companies");
+        const res = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/companies");
         const data = await res.json();
         if (data.success) {
           setCompanies(data.data);

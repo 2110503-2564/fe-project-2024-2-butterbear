@@ -39,7 +39,7 @@ export default function EditCompanyPage() {
   useEffect(() => {
     const fetchCompany = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/companies/${cid}`);
+        const res = await fetch(`https://two110503-backend-project-butterbear.onrender.com/api/v1/companies/${cid}`);
         const data = await res.json();
         if (res.ok && data.success) {
           const {
@@ -100,7 +100,7 @@ export default function EditCompanyPage() {
         image: imageBase64 || existingImage,
       };
 
-      const res = await fetch(`http://localhost:5000/api/v1/companies/${cid}`, {
+      const res = await fetch(`https://two110503-backend-project-butterbear.onrender.com/api/v1/companies/${cid}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

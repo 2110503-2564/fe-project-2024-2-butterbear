@@ -31,7 +31,7 @@ export default function BookingPage() {
     const fetchCompany = async () => {
       if (!cid) return;
       console.log("Fetching company with id:", cid);
-      const res = await fetch(`http://localhost:5000/api/v1/companies/${cid}`);
+      const res = await fetch(`https://two110503-backend-project-butterbear.onrender.com/api/v1/companies/${cid}`);
       const data = await res.json();
       if (res.ok && data.success) {
         setCompany(data.data);
@@ -60,7 +60,7 @@ export default function BookingPage() {
   
       setSubmitting(true);
   
-      const res = await fetch(`http://localhost:5000/api/v1/companies/${company._id}/bookings`, {
+      const res = await fetch(`https://two110503-backend-project-butterbear.onrender.com/api/v1/companies/${company._id}/bookings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

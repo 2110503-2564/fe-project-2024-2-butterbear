@@ -28,7 +28,7 @@ export default function AdminBookingUserList() {
     const fetchBookings = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5000/api/v1/bookings", {
+        const res = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/bookings", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
