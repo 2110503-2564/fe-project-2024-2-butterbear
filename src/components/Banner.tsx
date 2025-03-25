@@ -1,16 +1,13 @@
+// src/components/Banner.tsx
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useUser } from "@/context/UserContext"; // ✅ แทน useSession
 
 export default function Banner() {
-  const covers = [
-    "/image/banner.png"
-  ];
+  const covers = ["/image/banner.png"];
   const [index, setIndex] = useState(0);
-  const router = useRouter();
-  const { data: session } = useSession();
+  const { user } = useUser(); // ✅ ถ้าจะใช้ข้อมูล user
 
   return (
     <div
@@ -19,7 +16,6 @@ export default function Banner() {
         setIndex((prev) => (prev + 1) % covers.length);
       }}
     >
-      {/* Background image */}
       <Image
         src={covers[index % covers.length]}
         alt="cover"
@@ -27,11 +23,7 @@ export default function Banner() {
         priority
         className="object-cover"
       />
-
-      {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/50" />
-
-      {/* Centered Text */}
       <div className="absolute inset-0 flex flex-col justify-center items-center px-4 text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
           Your career journey starts here

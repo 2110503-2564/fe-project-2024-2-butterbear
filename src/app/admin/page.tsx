@@ -1,10 +1,11 @@
+// app/admin/page.tsx
 "use client";
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useUser } from "@/context/UserContext"; // ✅ ใช้ useUser แทน useSession
 import Link from "next/link";
 
 export default function AdminHome() {
-  const { data: session } = useSession();
+  const { user } = useUser();
   const [timestamp, setTimestamp] = useState("");
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function AdminHome() {
     );
   }, []);
 
-  const name = session?.user?.name || "Admin";
+  const name = user?.name || "Admin";
 
   return (
     <div className="min-h-screen bg-[#3B1F0B] py-10 px-4">
@@ -32,7 +33,6 @@ export default function AdminHome() {
           <br />
           <span className="text-sm text-gray-500">Logged in at {timestamp}</span>
         </p>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <SessionCard title="Company" href="/admin/company" />
           <SessionCard title="Booking" href="/admin/bookings" />
