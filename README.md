@@ -1,3 +1,5 @@
+Vercel: https://2110507-frontend-project-butterbear-git-main-gincoles-projects.vercel.app/admin/company
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
