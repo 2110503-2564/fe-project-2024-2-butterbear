@@ -16,7 +16,7 @@ export default function BookingList() {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const res = await fetch("https://2110503-backend-project-sable.vercel.app//api/v1/bookings", {
+        const res = await fetch("https://2110503-backend-project-sable.vercel.app/api/v1/bookings", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -54,7 +54,7 @@ export default function BookingList() {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await fetch(`https://2110503-backend-project-sable.vercel.app//api/v1/bookings/${bookingId}`, {
+      const res = await fetch(`https://2110503-backend-project-sable.vercel.app/api/v1/bookings/${bookingId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -88,7 +88,7 @@ export default function BookingList() {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await fetch(`https://2110503-backend-project-sable.vercel.app//api/v1/bookings/${bookingId}`, {
+      const res = await fetch(`https://2110503-backend-project-sable.vercel.app/api/v1/bookings/${bookingId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

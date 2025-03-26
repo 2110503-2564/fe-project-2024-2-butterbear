@@ -12,7 +12,7 @@ export default function CompanyDetailPage() {
   useEffect(() => {
     const fetchCompany = async () => {
       try {
-        const res = await fetch(`https://2110503-backend-project-sable.vercel.app//api/v1/companies/${cid}`);
+        const res = await fetch(`https://2110503-backend-project-sable.vercel.app/api/v1/companies/${cid}`);
         const data = await res.json();
         if (res.ok && data.success) {
           setCompany(data.data);

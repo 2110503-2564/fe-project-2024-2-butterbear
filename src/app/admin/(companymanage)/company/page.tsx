@@ -29,7 +29,7 @@ export default function ManageCompanyPage() {
 
   const fetchCompanies = async () => {
     try {
-      const res = await fetch("https://2110503-backend-project-sable.vercel.app//api/v1/companies");
+      const res = await fetch("https://2110503-backend-project-sable.vercel.app/api/v1/companies");
       if (!res.ok) throw new Error("Failed to fetch");
       const responseData = await res.json();
       console.log("Fetched companies:", responseData);
@@ -56,7 +56,7 @@ export default function ManageCompanyPage() {
         return;
       }
   
-      const res = await fetch(`https://2110503-backend-project-sable.vercel.app//api/v1/companies/${cid}`, {
+      const res = await fetch(`https://2110503-backend-project-sable.vercel.app/api/v1/companies/${cid}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

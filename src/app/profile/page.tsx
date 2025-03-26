@@ -42,7 +42,7 @@ export default function ProfilePage() {
 
     setStatusMessage(null);
 
-    const res = await fetch("https://2110503-backend-project-sable.vercel.app//api/v1/auth/updatedetails", {
+    const res = await fetch("https://2110503-backend-project-sable.vercel.app/api/v1/auth/updatedetails", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
