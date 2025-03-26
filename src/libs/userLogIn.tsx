@@ -2,7 +2,7 @@ export default async function userLogin(
   userEmail: string,
   userPassword: string
 ) {
-  const response = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/auth/login", {
+  const response = await fetch("https://2110503-backend-project-sable.vercel.app//api/v1/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export default async function userLogin(
   const data = await response.json();
 
   // get user info after login
-  const profileRes = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/auth/me", {
+  const profileRes = await fetch("https://2110503-backend-project-sable.vercel.app//api/v1/auth/me", {
     headers: {
       Authorization: `Bearer ${data.token}`,
     },

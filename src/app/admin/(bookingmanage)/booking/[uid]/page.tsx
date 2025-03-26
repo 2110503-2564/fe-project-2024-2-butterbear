@@ -35,7 +35,7 @@ export default function UserBookingPage() {
     const fetchUserBookings = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/bookings", {
+        const res = await fetch("https://2110503-backend-project-sable.vercel.app//api/v1/bookings", {
             method: "GET",
             headers: {
             Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ export default function UserBookingPage() {
     if (!confirmDelete) return;
 
     const token = localStorage.getItem("token");
-    const res = await fetch(`https://two110503-backend-project-butterbear.onrender.com/api/v1/bookings/${id}`, {
+    const res = await fetch(`https://2110503-backend-project-sable.vercel.app//api/v1/bookings/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ export default function UserBookingPage() {
 
     for (const id of Object.keys(editedDates)) {
       const newDate = editedDates[id];
-      await fetch(`https://two110503-backend-project-butterbear.onrender.com/api/v1/bookings/${id}`, {
+      await fetch(`https://2110503-backend-project-sable.vercel.app//api/v1/bookings/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -17,7 +17,7 @@ export default function CardPanel() {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const res = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/companies");
+        const res = await fetch("https://2110503-backend-project-sable.vercel.app//api/v1/companies");
         const data = await res.json();
         if (res.ok && data.success) {
           setCompanies(data.data);

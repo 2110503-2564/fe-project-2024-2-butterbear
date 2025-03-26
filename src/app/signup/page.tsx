@@ -16,7 +16,7 @@ export default function SignUpPage() {
     setError("");
 
     try {
-      const res = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/auth/register", {
+      const res = await fetch("https://2110503-backend-project-sable.vercel.app//api/v1/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password, tel, role: "user" }),

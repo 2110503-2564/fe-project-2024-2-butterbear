@@ -28,7 +28,7 @@ export default function AdminBookingUserList() {
     const fetchBookings = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("https://two110503-backend-project-butterbear.onrender.com/api/v1/bookings", {
+        const res = await fetch("https://2110503-backend-project-sable.vercel.app//api/v1/bookings", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
